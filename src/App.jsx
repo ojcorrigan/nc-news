@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router";
 import Header from "./components/Header";
 import Articles from "./components/Articles";
 
+const user = "grumpy19";
+
 function App() {
   return (
     <>
