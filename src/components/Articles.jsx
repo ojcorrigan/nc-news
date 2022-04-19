@@ -3,22 +3,38 @@ import { getArticles } from "../utils/api";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const [buttonPress, setButtonPress] = useState(null);
+  let arts = getArticles();
   useEffect(() => {
-    getArticles().then((articlesFromApi) => {
+    arts.then((articlesFromApi) => {
       setArticles(articlesFromApi.articles);
+      setButtonPress(null);
     });
-  }, []);
+  }, [buttonPress]);
 
   return (
     <section>
-      <div className="filter">
-        <p>Sort: </p>
+      <form
+        className="filter"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <label>Sort: </label>
         <button className="articleSort">Ascending</button>
         <button className="articleSort">Descending</button>
-        <button className="articleSort">title</button>
+        <button
+          className="articleSort"
+          onClick={() => {
+            arts = getArticles("title");
+            setButtonPress(true);
+          }}
+        >
+          title
+        </button>
         <button className="articleSort">Author</button>
         <button className="articleSort">topic</button>
-      </div>
+      </form>
       <ul className="articleList">
         {articles.map((article) => {
           return (
