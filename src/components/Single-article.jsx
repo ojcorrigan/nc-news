@@ -164,6 +164,7 @@ const CommentForm = ({
           });
           postComment(newComment, username, article_id);
           setNewCommentPosted(true);
+          setNewComment("");
         }}
       >
         <label>Comment: </label>
