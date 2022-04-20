@@ -18,11 +18,12 @@ const SingleArticle = () => {
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
+        setNewCommentPosted(false);
       })
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [article_id]);
+  }, [newCommentPosted]);
   console.log(newCommentPosted);
   if (err) {
     return (
@@ -103,8 +104,19 @@ const ArticleComments = ({
 
   useEffect(() => {
     getComments(article_id).then((data) => {
+      function compare(a, b) {
+        const timeA = a.created_at;
+        const timeB = b.created_at;
+        let comparison = 0;
+        if (timeA > timeB) {
+          comparison = -1;
+        } else if (timeA < timeB) {
+          comparison = 1;
+        }
+        return comparison;
+      }
+      data.comments.sort(compare);
       setComments(data.comments);
-      setNewCommentPosted(false);
     });
   }, [newCommentPosted]);
 
