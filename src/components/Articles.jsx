@@ -4,9 +4,9 @@ import { getArticles } from "../utils/api";
 const Articles = () => {
   const [articles, setArticles] = useState([]);
 
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState(undefined);
 
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState(undefined);
 
   const [seeOnly, setSeeOnly] = useState("");
 
@@ -61,7 +61,7 @@ const Articles = () => {
         <button
           className="articleSort"
           onClick={() => {
-            setSortBy("");
+            setSortBy(undefined);
           }}
         >
           Date
@@ -69,8 +69,8 @@ const Articles = () => {
         <button
           className="articleSort"
           onClick={() => {
-            setSortBy("");
-            setOrder("");
+            setSortBy(undefined);
+            setOrder(undefined);
             setSeeOnly("");
           }}
         >
