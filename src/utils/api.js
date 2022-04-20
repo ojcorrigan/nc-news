@@ -19,3 +19,9 @@ export const getArticles = (sortby, order, seeOnly) => {
       return data;
     });
 };
+
+export const getSingleArticle = (article_id) => {
+  return newsApi.get(`/articles/${article_id}`).then(({ data }) => {
+    return data;
+  });
+};

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
+import { Link } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -13,6 +14,7 @@ const Articles = () => {
   useEffect(() => {
     getArticles(sortBy, order, seeOnly).then((data) => {
       setArticles(data.articles);
+      console.log(articles);
     });
   }, [sortBy, order, seeOnly]);
 
@@ -31,7 +33,7 @@ const Articles = () => {
             setOrder("ASC");
           }}
         >
-          Ascending
+          Asc
         </button>
         <button
           className="articleOrder"
@@ -39,7 +41,7 @@ const Articles = () => {
             setOrder("DESC");
           }}
         >
-          Descending
+          Desc
         </button>
         <button
           className="articleSort"
@@ -81,7 +83,13 @@ const Articles = () => {
         {articles.map((article) => {
           return (
             <li key={article.article_id}>
-              <h2 className="articleTitle">{article.title}</h2>
+              <Link
+                to={`/articles/${article.article_id}`}
+                state={{}}
+                className="articleTitle"
+              >
+                {article.title}
+              </Link>
               <p
                 className="articleTopic"
                 onClick={() => {
@@ -102,7 +110,6 @@ const Articles = () => {
           );
         })}
       </ul>
-      <p>Hello</p>
     </section>
   );
 };
