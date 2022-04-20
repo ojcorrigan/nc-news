@@ -6,9 +6,8 @@ const SingleArticle = () => {
   const [article, setArticle] = useState([]);
   const { article_id } = useParams();
   useEffect(() => {
-    getSingleArticle(article_id).then((art) => {
-      setArticle(art.data);
-      console.log(article);
+    getSingleArticle(article_id).then((data) => {
+      setArticle(data);
     });
   }, [article_id]);
 
