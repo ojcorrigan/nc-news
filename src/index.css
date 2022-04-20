@@ -1,13 +1,87 @@
-body {
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --header: #15616d;
+  --deepblue: #001524;
+  --beige: #ffecd1;
+  --accentOrange: #ff7d00;
+  --Umber: #78290f;
+}
+/*Header*/
+nav {
+  background-color: var(--header);
+  height: 20vh;
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-rows: 2;
+  grid-template-areas:
+    "title title"
+    "home add";
+}
+.headTitle {
+  grid-area: title;
+  margin: auto;
+}
+
+#home {
+  grid-area: home;
+}
+
+#add {
+  grid-area: add;
+}
+
+.headButton {
+  height: 70%;
+  width: 50%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+/*Articles */
+
+.articleList {
+  margin: 20px;
+}
+
+.articleList li {
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-rows: 2;
+  grid-template-areas:
+    "title title"
+    "topic author";
+  margin-bottom: 20px;
+  background-color: var(--beige);
+  border-radius: 5px;
+}
+
+.articleTitle {
+  grid-area: title;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  color: var(--Umber);
+}
+
+.articleTopic {
+  grid-area: topic;
+  margin: auto;
+  padding: 5px;
+  padding-bottom: 10px;
+}
+
+.articleAuthor {
+  grid-area: author;
+  margin: auto;
+  padding: 5px;
+  padding-bottom: 10px;
+}
+
+.filter {
+  margin: auto;
+  text-align: center;
 }
