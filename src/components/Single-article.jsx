@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle } from "../utils/api";
+import { getComments } from "../utils/api";
 
 const SingleArticle = () => {
   const [article, setArticle] = useState([]);
   const { article_id } = useParams();
   useEffect(() => {
-    getSingleArticle(article_id).then((art) => {
-      setArticle(art.data);
-      console.log(article);
+    getSingleArticle(article_id).then((data) => {
+      setArticle(data);
     });
   }, [article_id]);
 
@@ -34,8 +34,22 @@ const SingleArticle = () => {
         {" "}
         {article.created_at}
       </p>
+      <div>
+        <ArticleComments></ArticleComments>
+      </div>
     </main>
   );
+};
+
+const ArticleComments = () => {
+  const [comments, setComments] = useState([]);
+  const { article_id } = useParams();
+
+  useEffect(() => {
+    getComments(article_id).then((data) => {
+      console.log(data);
+    });
+  }, []);
 };
 
 export default SingleArticle;

@@ -21,5 +21,12 @@ export const getArticles = (sortby, order, seeOnly) => {
 };
 
 export const getSingleArticle = (article_id) => {
-  return newsApi.get(`/articles/${article_id}`);
+  return newsApi.get(`/articles/${article_id}`).then(({ data }) => {
+    console.log(data);
+    return data;
+  });
+};
+
+export const getComments = (article_id) => {
+  return newsApi.get(`comments/${article_id}`);
 };
