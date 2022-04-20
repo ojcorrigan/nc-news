@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 const Articles = () => {
   const [articles, setArticles] = useState([]);
 
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState(undefined);
 
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState(undefined);
 
   const [seeOnly, setSeeOnly] = useState("");
 
@@ -33,7 +33,7 @@ const Articles = () => {
             setOrder("ASC");
           }}
         >
-          Ascending
+          Asc
         </button>
         <button
           className="articleOrder"
@@ -41,7 +41,7 @@ const Articles = () => {
             setOrder("DESC");
           }}
         >
-          Descending
+          Desc
         </button>
         <button
           className="articleSort"
@@ -63,7 +63,7 @@ const Articles = () => {
         <button
           className="articleSort"
           onClick={() => {
-            setSortBy("");
+            setSortBy(undefined);
           }}
         >
           Date
@@ -71,8 +71,8 @@ const Articles = () => {
         <button
           className="articleSort"
           onClick={() => {
-            setSortBy("");
-            setOrder("");
+            setSortBy(undefined);
+            setOrder(undefined);
             setSeeOnly("");
           }}
         >
@@ -110,7 +110,6 @@ const Articles = () => {
           );
         })}
       </ul>
-      <p>Hello</p>
     </section>
   );
 };
