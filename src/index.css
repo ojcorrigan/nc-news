@@ -43,6 +43,29 @@ nav {
 
 /*Articles */
 
+.filter {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.articleSort {
+  height: 40px;
+  width: 70px;
+  margin-top: auto;
+  margin: 10px;
+  text-align: center;
+}
+
+.articleOrder {
+  height: 40px;
+  width: 70px;
+  margin: 10px;
+  margin-top: auto;
+  text-align: center;
+}
+
 .articleList {
   margin: 20px;
 }
@@ -84,4 +107,117 @@ nav {
 .filter {
   margin: auto;
   text-align: center;
+}
+
+/* Single Article */
+
+main {
+  width: 85vw;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: var(--beige);
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-rows: 5;
+  grid-template-areas:
+    "title title"
+    "topic author"
+    "body body"
+    "comments votes"
+    "date date";
+}
+
+#articleHead {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  grid-area: title;
+}
+
+#topic {
+  grid-area: topic;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+#singleAuthor {
+  grid-area: author;
+  text-align: right;
+  margin-right: 30px;
+}
+
+#body {
+  grid-area: body;
+  text-align: justify;
+  padding: 10px;
+}
+
+#comment_count {
+  margin: 10px;
+  margin-left: 30px;
+}
+
+#votes {
+  margin: 10px;
+  text-align: center;
+}
+
+#date {
+  padding: 10px;
+}
+
+@media screen and (min-width: 945px) {
+  /*Articles*/
+  .filter {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .articleSort {
+    height: 70px;
+    width: 100px;
+    margin-top: auto;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .articleOrder {
+    height: 70px;
+    width: 100px;
+    margin: 10px;
+    margin-top: auto;
+    text-align: center;
+  }
+
+  section {
+    width: 80vw;
+    margin: auto;
+  }
+  .articleList {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .articleList li {
+    width: 45%;
+    height: 150px;
+    margin: 10px;
+    font-size: 1.4rem;
+  }
+
+  /*single Article*/
+
+  main {
+    width: 65vw;
+  }
+
+  .articleP {
+    font-size: 1.4rem;
+  }
 }

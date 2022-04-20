@@ -4,16 +4,24 @@ const newsApi = axios.create({
   baseURL: "https://ojs-news-app1.herokuapp.com/api",
 });
 
-export const getArticles = (sortBy, order) => {
+export const getArticles = (sortby, order, seeOnly) => {
   let ext = "/articles";
-  let query = "";
-  if (sortBy) {
-    query = `?sortby=${sortBy}`;
-    ext += query;
-    console.log("here");
-  }
-  console.log(ext);
-  return newsApi.get(ext).then(({ data }) => {
+
+  return newsApi
+    .get(ext, {
+      params: {
+        sortby,
+        order,
+        topic: seeOnly.topic,
+      },
+    })
+    .then(({ data }) => {
+      return data;
+    });
+};
+
+export const getSingleArticle = (article_id) => {
+  return newsApi.get(`/articles/${article_id}`).then(({ data }) => {
     return data;
   });
 };
