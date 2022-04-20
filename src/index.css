@@ -117,7 +117,7 @@ main {
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: var(--beige);
-  border-radius: 5px;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: 2;
   grid-template-rows: 5;
@@ -167,6 +167,43 @@ main {
 
 #date {
   padding: 10px;
+}
+
+/*Comments*/
+
+.commentList {
+  width: 85vw;
+  margin: auto;
+  list-style: none;
+  background-color: var(--beige);
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 20px;
+}
+
+.commentList p {
+  margin: 10px;
+}
+
+.commentForm {
+  margin: auto;
+  width: 50vw;
+  border: 1px solid black;
+  display: flex;
+}
+
+.commentForm label {
+  width: 20%;
+  margin: auto;
+}
+.commentForm textArea {
+  margin: auto;
+  height: 80px;
+  width: 300px;
+}
+
+.commentForm button {
+  margin: auto;
 }
 
 @media screen and (min-width: 945px) {
