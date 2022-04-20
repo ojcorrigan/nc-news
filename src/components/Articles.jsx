@@ -3,14 +3,18 @@ import { getArticles } from "../utils/api";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
-  const [buttonPress, setButtonPress] = useState(null);
-  let arts = getArticles();
+
+  const [sortBy, setSortBy] = useState("");
+
+  const [order, setOrder] = useState("");
+
+  const [seeOnly, setSeeOnly] = useState("");
+
   useEffect(() => {
-    arts.then((articlesFromApi) => {
-      setArticles(articlesFromApi.articles);
-      setButtonPress(null);
+    getArticles(sortBy, order, seeOnly).then((data) => {
+      setArticles(data.articles);
     });
-  }, [buttonPress]);
+  }, [sortBy, order, seeOnly]);
 
   return (
     <section>
@@ -21,27 +25,79 @@ const Articles = () => {
         }}
       >
         <label>Sort: </label>
-        <button className="articleSort">Ascending</button>
-        <button className="articleSort">Descending</button>
+        <button
+          className="articleOrder"
+          onClick={() => {
+            setOrder("ASC");
+          }}
+        >
+          Ascending
+        </button>
+        <button
+          className="articleOrder"
+          onClick={() => {
+            setOrder("DESC");
+          }}
+        >
+          Descending
+        </button>
+        <button
+          className="articleSort"
+          id="author"
+          onClick={() => {
+            setSortBy("author");
+          }}
+        >
+          Author
+        </button>
         <button
           className="articleSort"
           onClick={() => {
-            arts = getArticles("title");
-            setButtonPress(true);
+            setSortBy("topic");
           }}
         >
-          title
+          topic
         </button>
-        <button className="articleSort">Author</button>
-        <button className="articleSort">topic</button>
+        <button
+          className="articleSort"
+          onClick={() => {
+            setSortBy("");
+          }}
+        >
+          Date
+        </button>
+        <button
+          className="articleSort"
+          onClick={() => {
+            setSortBy("");
+            setOrder("");
+            setSeeOnly("");
+          }}
+        >
+          Clear Filters
+        </button>
       </form>
       <ul className="articleList">
         {articles.map((article) => {
           return (
             <li key={article.article_id}>
               <h2 className="articleTitle">{article.title}</h2>
-              <p className="articleTopic">{article.topic}</p>
-              <p className="articleAuthor">{article.author}</p>
+              <p
+                className="articleTopic"
+                onClick={() => {
+                  setSeeOnly({ topic: article.topic });
+                }}
+              >
+                {article.topic}
+              </p>
+              <p
+                className="articleAuthor"
+                onClick={() => {
+                  setSeeOnly({ author: article.author });
+                }}
+              >
+                {article.author}
+              </p>
             </li>
           );
         })}
