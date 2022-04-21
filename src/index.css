@@ -135,7 +135,7 @@ main {
     "topic author"
     "body body"
     "comments votes"
-    "date date";
+    "commentButton date";
 }
 
 #articleHead {
@@ -169,15 +169,34 @@ main {
   margin-left: 30px;
 }
 
+#voting {
+  grid-area: votes;
+  display: flex;
+}
+
 #votes {
   margin: 10px;
-  text-align: center;
+}
+
+#upVote {
+  width: 50px;
+  margin: auto;
+}
+
+#downVote {
+  width: 70px;
+  margin: auto;
 }
 
 #date {
+  margin: auto;
   padding: 10px;
+  grid-area: date;
 }
 
+#commentButt {
+  grid-area: commentButton;
+}
 /*Comments*/
 
 .commentList {

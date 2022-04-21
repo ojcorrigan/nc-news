@@ -47,24 +47,22 @@ const SingleArticle = () => {
         <p className="articleP" id="body">
           {article.body}
         </p>
-        <p
-          className="articleP"
-          id="comment_count"
-          onClick={() => {
-            if (!isOpen) setIsOpen(true);
-            else setIsOpen(false);
-          }}
-        >
+        <p className="articleP" id="comment_count">
           Comments: {article.comment_count}
         </p>
-        <p className="articleP" id="votes">
-          Votes: {article.votes}
-        </p>
+        <div id="voting">
+          <p className="articleP" id="votes">
+            Votes: {article.votes}
+          </p>
+          <button id="upVote">Up vote</button>
+          <button id="downVote">Down vote</button>
+        </div>
         <p className="articleP" id="date">
           {" "}
           {article.created_at}
         </p>
         <button
+          id="commentButt"
           onClick={() => {
             if (!addComment) setAddComment(true);
             else setAddComment(false);
@@ -72,7 +70,7 @@ const SingleArticle = () => {
             else setIsOpen(false);
           }}
         >
-          Add Comment
+          View Comments
         </button>
       </main>
       <CommentForm
@@ -165,19 +163,21 @@ const CommentForm = ({
         className="commentForm"
         onSubmit={(e) => {
           e.preventDefault();
-          setComments((currComments) => {
-            let comm = {
-              votes: 0,
-              author: username,
-              body: newComment,
-              created_at: Date.now(),
-              comment_id: "TBC",
-            };
-            return [comm, ...currComments];
-          });
-          postComment(newComment, username, article_id);
-          setNewCommentPosted(true);
-          setNewComment("");
+          if (newComment !== "") {
+            setComments((currComments) => {
+              let comm = {
+                votes: 0,
+                author: username,
+                body: newComment,
+                created_at: Date.now(),
+                comment_id: "TBC",
+              };
+              return [comm, ...currComments];
+            });
+            postComment(newComment, username, article_id);
+            setNewCommentPosted(true);
+            setNewComment("");
+          }
         }}
       >
         <label>Comment: </label>
