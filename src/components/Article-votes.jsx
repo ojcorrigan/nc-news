@@ -2,33 +2,27 @@ import { React, useEffect, useState } from "react";
 import { incVote } from "../utils/api";
 
 const ArticleVotes = ({ votes, article_id }) => {
-  const [voted, SetVoted] = useState(false);
-  const [votesState, SetVoteState] = useState(0);
+  const [voted, setVoted] = useState(false);
+  const [votesState, setVoteState] = useState(0);
   return (
     <div>
-      <p>Votes: {!voted ? votes : votesState} </p>
+      <p>Votes: {votesState + votes} </p>
       <button
+        disabled={voted}
         onClick={() => {
-          if (!voted) {
-            incVote(1, article_id);
-            SetVoteState(() => {
-              return (votes += 1);
-            });
-            SetVoted(true);
-          }
+          incVote(1, article_id);
+          setVoteState(1);
+          setVoted(true);
         }}
       >
         Up vote
       </button>
       <button
+        disabled={voted}
         onClick={() => {
-          if (!voted) {
-            incVote(-1, article_id);
-            SetVoteState(() => {
-              return (votes -= 1);
-            });
-            SetVoted(true);
-          }
+          incVote(-1, article_id);
+          setVoteState(-1);
+          setVoted(true);
         }}
       >
         Down Vote
