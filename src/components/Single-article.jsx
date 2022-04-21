@@ -16,6 +16,7 @@ const SingleArticle = () => {
   const { article_id } = useParams();
 
   useEffect(() => {
+    setNewCommentPosted(false);
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
@@ -146,6 +147,7 @@ const ArticleComments = ({
                 <button
                   onClick={() => {
                     deleteComment(comment.comment_id);
+                    setNewCommentPosted(true);
                     setComments((currentComms) => {
                       return currentComms.filter((comm) => {
                         if (comm.comment_id !== comment.comment_id) return comm;
@@ -182,8 +184,9 @@ const CommentForm = ({
           if (newComment === "") {
             setIsValid(false);
             setNewComment("Please enter comment");
-          }
-          if (newComment !== "") {
+          } else if (newComment === "Enter comment here...") {
+            setIsValid(false);
+          } else if (newComment !== "") {
             setComments((currComments) => {
               let comm = {
                 votes: 0,
