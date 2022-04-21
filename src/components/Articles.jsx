@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import { Link } from "react-router-dom";
+import sortFunc from "../utils/helper-funcs";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
-
   const [sortBy, setSortBy] = useState(undefined);
-
   const [order, setOrder] = useState(undefined);
-
   const [seeOnly, setSeeOnly] = useState("");
+  const [byVotes, setByVotes] = useState(false);
 
   useEffect(() => {
     getArticles(sortBy, order, seeOnly).then((data) => {
-      setArticles(data.articles);
+      if (byVotes) {
+        let sorted = sortFunc(data.articles, order);
+        setArticles(sorted);
+      } else {
+        setArticles(data.articles);
+      }
     });
-  }, [sortBy, order, seeOnly]);
-
+  }, [sortBy, order, seeOnly, byVotes]);
   console.log(articles);
   return (
     <section>
@@ -48,14 +51,25 @@ const Articles = () => {
           id="author"
           onClick={() => {
             setSortBy("author");
+            setByVotes(false);
           }}
         >
           Author
         </button>
         <button
           className="articleSort"
+          id="votes"
+          onClick={() => {
+            setByVotes(true);
+          }}
+        >
+          Votes
+        </button>
+        <button
+          className="articleSort"
           onClick={() => {
             setSortBy("topic");
+            setByVotes(false);
           }}
         >
           topic
@@ -74,6 +88,7 @@ const Articles = () => {
             setSortBy(undefined);
             setOrder(undefined);
             setSeeOnly("");
+            setByVotes(false);
           }}
         >
           Clear Filters
@@ -98,14 +113,8 @@ const Articles = () => {
               >
                 {article.topic}
               </p>
-              <p
-                className="articleAuthor"
-                onClick={() => {
-                  setSeeOnly({ author: article.author });
-                }}
-              >
-                {article.author}
-              </p>
+              <p className="articleAuthor">{article.author}</p>
+              <p>Votes: {article.votes}</p>
             </li>
           );
         })}
