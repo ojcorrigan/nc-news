@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
-import { getComments } from "../utils/api";
-
+import CommentForm from "./Comment-form";
+import ArticleComments from "./Article-comments";
 import ArticleVotes from "./Article-votes";
-
-import { deleteComment } from "../utils/api";
-
 const username = "cooljmessy";
 
 const SingleArticle = () => {
@@ -19,7 +16,7 @@ const SingleArticle = () => {
   const { article_id } = useParams();
 
   useEffect(() => {
-    setNewCommentPosted(false);
+    setCommentChange(false);
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
@@ -78,6 +75,8 @@ const SingleArticle = () => {
         setComments={setComments}
         article_id={article_id}
         setCommentChange={setCommentChange}
+        postComment={postComment}
+        username={username}
       ></CommentForm>
       <ArticleComments
         open={isOpen}
@@ -85,144 +84,10 @@ const SingleArticle = () => {
         comments={comments}
         setCommentChange={setCommentChange}
         commentChange={commentChange}
+        username={username}
+        article_id={article_id}
       ></ArticleComments>
     </div>
   );
 };
-
-const ArticleComments = ({
-  open,
-  setComments,
-  comments,
-  commentChange,
-  setErr,
-  err,
-  setNewCommentPosted,
-}) => {
-  const { article_id } = useParams();
-
-  useEffect(() => {
-    setNewCommentPosted(false);
-    getComments(article_id)
-      .then((data) => {
-        function compare(a, b) {
-          const timeA = a.created_at;
-          const timeB = b.created_at;
-          let comparison = 0;
-          if (timeA > timeB) {
-            comparison = -1;
-          } else if (timeA < timeB) {
-            comparison = 1;
-          }
-          return comparison;
-        }
-        data.comments.sort(compare);
-        setComments(data.comments);
-      })
-      .catch((err) => {
-        setErr(err.response.data.msg);
-      });
-  }, [commentChange]);
-  if (err) {
-    return (
-      <main>
-        <p className="commentErr" id="commErr">
-          {err}
-        </p>
-      </main>
-    );
-  }
-
-  if (open) {
-    return (
-      <ul>
-        {comments.map((comment) => {
-          return (
-            <li className="commentList" key={comment.comment_id}>
-              <p id="commentAuth">Comment by: {comment.author}</p>
-              <p id="commentBody">{comment.body}</p>
-              <p id="commentVotes">Votes: {comment.votes}</p>
-              <p id="commentDate">{comment.created_at}</p>
-              {comment.author === username && (
-                <button
-                  onClick={() => {
-                    deleteComment(comment.comment_id);
-                    setNewCommentPosted(true);
-                    setComments((currentComms) => {
-                      return currentComms.filter((comm) => {
-                        if (comm.comment_id !== comment.comment_id) return comm;
-                      });
-                    });
-                  }}
-                >
-                  delete comment
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-};
-
-const CommentForm = ({
-  comment,
-  setComments,
-  article_id,
-  setCommentChange,
-}) => {
-  const [newComment, setNewComment] = useState("Enter comment here...");
-  const [isValid, setIsValid] = useState(true);
-  if (comment) {
-    return (
-      <form
-        className="commentForm"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (newComment === "") {
-            setIsValid(false);
-            setNewComment("Please enter comment");
-          } else if (newComment === "Enter comment here...") {
-            setIsValid(false);
-          } else if (newComment !== "") {
-            setComments((currComments) => {
-              let comm = {
-                votes: 0,
-                author: username,
-                body: newComment,
-                created_at: Date.now(),
-                comment_id: "TBC",
-              };
-              return [comm, ...currComments];
-            });
-            postComment(newComment, username, article_id);
-            setCommentChange(true);
-            setNewComment("");
-          }
-        }}
-      >
-        <label>Comment: </label>
-        <textarea
-          id="commentField"
-          className={isValid ? "" : "invalid"}
-          value={newComment}
-          onClick={() => {
-            if (newComment === "Enter comment here...") setNewComment("");
-            if (newComment === "Please enter comment");
-            setNewComment("");
-          }}
-          onChange={(e) => {
-            setIsValid(true);
-            setNewComment(e.target.value);
-          }}
-        >
-          Please enter comment here...
-        </textarea>
-        <button>Submit</button>
-      </form>
-    );
-  }
-};
-
 export default SingleArticle;
