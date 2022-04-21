@@ -43,7 +43,6 @@ export const incVote = (num, article_id) => {
   return newsApi
     .patch(`articles/${article_id}`, { inc_votes: num })
     .then((result) => {
-      console.log(result);
       return result;
     });
 };
