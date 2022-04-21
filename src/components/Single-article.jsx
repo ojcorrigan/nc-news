@@ -155,6 +155,7 @@ const CommentForm = ({
   article_id,
   setNewCommentPosted,
 }) => {
+  const [isValid, setIsValid] = useState(true);
   const [newComment, setNewComment] = useState("");
   if (comment) {
     console.log(newComment);
@@ -163,6 +164,10 @@ const CommentForm = ({
         className="commentForm"
         onSubmit={(e) => {
           e.preventDefault();
+          if (newComment === "") {
+            setIsValid(false);
+            setNewComment("Please enter comment");
+          }
           if (newComment !== "") {
             setComments((currComments) => {
               let comm = {
@@ -182,8 +187,10 @@ const CommentForm = ({
       >
         <label>Comment: </label>
         <textarea
+          className={isValid ? "" : "invalid"}
           value={newComment}
           onChange={(e) => {
+            setIsValid(true);
             setNewComment(e.target.value);
           }}
         ></textarea>
