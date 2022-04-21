@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <nav>
       <h1 className="headTitle">Welcome to Northcoders News</h1>
-      <Link to="/">
+      <Link to="/" id="homeButtonLink">
         <button className="headButton" id="home">
           Home
         </button>

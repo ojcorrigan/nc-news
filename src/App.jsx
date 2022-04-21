@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Articles from "./components/Articles";
 import SingleArticle from "./components/Single-article";
 
+const user = "grumpy19";
+
 function App() {
   return (
     <>

@@ -25,3 +25,16 @@ export const getSingleArticle = (article_id) => {
     return data;
   });
 };
+
+export const getComments = (article_id) => {
+  return newsApi.get(`/articles/${article_id}/comments`).then(({ data }) => {
+    return data;
+  });
+};
+
+export const postComment = (comment, username, article_id) => {
+  return newsApi.post(`/articles/${article_id}/comments`, {
+    username,
+    body: comment,
+  });
+};
