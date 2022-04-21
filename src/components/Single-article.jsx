@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
 import { getComments } from "../utils/api";
+import { deleteComment } from "../utils/api";
 
 const username = "cooljmessy";
 
@@ -15,10 +16,10 @@ const SingleArticle = () => {
   const { article_id } = useParams();
 
   useEffect(() => {
+    setNewCommentPosted(false);
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
-        setNewCommentPosted(false);
       })
       .catch((err) => {
         setErr(err.response.data.msg);
@@ -96,10 +97,12 @@ const ArticleComments = ({
   newCommentPosted,
   setErr,
   err,
+  setNewCommentPosted,
 }) => {
   const { article_id } = useParams();
 
   useEffect(() => {
+    setNewCommentPosted(false);
     getComments(article_id)
       .then((data) => {
         function compare(a, b) {
@@ -140,6 +143,21 @@ const ArticleComments = ({
               <p id="commentBody">{comment.body}</p>
               <p id="commentVotes">Votes: {comment.votes}</p>
               <p id="commentDate">{comment.created_at}</p>
+              {comment.author === username && (
+                <button
+                  onClick={() => {
+                    deleteComment(comment.comment_id);
+                    setNewCommentPosted(true);
+                    setComments((currentComms) => {
+                      return currentComms.filter((comm) => {
+                        if (comm.comment_id !== comment.comment_id) return comm;
+                      });
+                    });
+                  }}
+                >
+                  delete comment
+                </button>
+              )}
             </li>
           );
         })}
@@ -154,7 +172,8 @@ const CommentForm = ({
   article_id,
   setNewCommentPosted,
 }) => {
-  const [newComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState("Enter comment here...");
+  const [isValid, setIsValid] = useState(true);
   if (comment) {
     console.log(newComment);
     return (
@@ -162,7 +181,12 @@ const CommentForm = ({
         className="commentForm"
         onSubmit={(e) => {
           e.preventDefault();
-          if (newComment !== "") {
+          if (newComment === "") {
+            setIsValid(false);
+            setNewComment("Please enter comment");
+          } else if (newComment === "Enter comment here...") {
+            setIsValid(false);
+          } else if (newComment !== "") {
             setComments((currComments) => {
               let comm = {
                 votes: 0,
@@ -181,11 +205,21 @@ const CommentForm = ({
       >
         <label>Comment: </label>
         <textarea
+          id="commentField"
+          className={isValid ? "" : "invalid"}
           value={newComment}
+          onClick={() => {
+            if (newComment === "Enter comment here...") setNewComment("");
+            if (newComment === "Please enter comment");
+            setNewComment("");
+          }}
           onChange={(e) => {
+            setIsValid(true);
             setNewComment(e.target.value);
           }}
-        ></textarea>
+        >
+          Please enter comment here...
+        </textarea>
         <button>Submit</button>
       </form>
     );
