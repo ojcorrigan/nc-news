@@ -6,7 +6,7 @@ const ArticleVotes = ({ votes, article_id }) => {
   const [votesState, SetVoteState] = useState(0);
   return (
     <div>
-      <p>Votes: {voted ? votesState : votes} </p>
+      <p>Votes: {!voted ? votes : votesState} </p>
       <button
         onClick={() => {
           if (!voted) {
@@ -23,7 +23,7 @@ const ArticleVotes = ({ votes, article_id }) => {
       <button
         onClick={() => {
           if (!voted) {
-            incVote(1, article_id);
+            incVote(-1, article_id);
             SetVoteState(() => {
               return (votes -= 1);
             });
