@@ -14,10 +14,10 @@ const Articles = () => {
   useEffect(() => {
     getArticles(sortBy, order, seeOnly).then((data) => {
       setArticles(data.articles);
-      console.log(articles);
     });
   }, [sortBy, order, seeOnly]);
 
+  console.log(articles);
   return (
     <section>
       <form

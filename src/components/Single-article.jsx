@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
 import { getComments } from "../utils/api";
+import ArticleVotes from "./Article-votes";
 
 const username = "cooljmessy";
 
@@ -11,19 +12,18 @@ const SingleArticle = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [comments, setComments] = useState([]);
-  const [newCommentPosted, setNewCommentPosted] = useState([false]);
+  const [commentChange, setCommentChange] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
-        setNewCommentPosted(false);
       })
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [newCommentPosted]);
+  }, [commentChange]);
   if (err) {
     return (
       <main>
@@ -33,7 +33,6 @@ const SingleArticle = () => {
       </main>
     );
   }
-
   return (
     <div>
       <main>
@@ -50,13 +49,10 @@ const SingleArticle = () => {
         <p className="articleP" id="comment_count">
           Comments: {article.comment_count}
         </p>
-        <div id="voting">
-          <p className="articleP" id="votes">
-            Votes: {article.votes}
-          </p>
-          <button id="upVote">Up vote</button>
-          <button id="downVote">Down vote</button>
-        </div>
+        <ArticleVotes
+          votes={article.votes}
+          article_id={article.article_id}
+        ></ArticleVotes>
         <p className="articleP" id="date">
           {" "}
           {article.created_at}
@@ -77,14 +73,14 @@ const SingleArticle = () => {
         comment={addComment}
         setComments={setComments}
         article_id={article_id}
-        setNewCommentPosted={setNewCommentPosted}
+        setCommentChange={setCommentChange}
       ></CommentForm>
       <ArticleComments
         open={isOpen}
         setComments={setComments}
         comments={comments}
-        setNewCommentPosted={setNewCommentPosted}
-        newCommentPosted={newCommentPosted}
+        setCommentChange={setCommentChange}
+        commentChange={commentChange}
       ></ArticleComments>
     </div>
   );
@@ -94,7 +90,7 @@ const ArticleComments = ({
   open,
   setComments,
   comments,
-  newCommentPosted,
+  commentChange,
   setErr,
   err,
 }) => {
@@ -120,7 +116,7 @@ const ArticleComments = ({
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [newCommentPosted]);
+  }, [commentChange]);
   if (err) {
     return (
       <main>
@@ -153,12 +149,11 @@ const CommentForm = ({
   comment,
   setComments,
   article_id,
-  setNewCommentPosted,
+  setCommentChange,
 }) => {
   const [isValid, setIsValid] = useState(true);
   const [newComment, setNewComment] = useState("");
   if (comment) {
-    console.log(newComment);
     return (
       <form
         className="commentForm"
@@ -180,7 +175,7 @@ const CommentForm = ({
               return [comm, ...currComments];
             });
             postComment(newComment, username, article_id);
-            setNewCommentPosted(true);
+            setCommentChange(true);
             setNewComment("");
           }
         }}
