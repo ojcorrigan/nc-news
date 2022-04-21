@@ -96,10 +96,12 @@ const ArticleComments = ({
   newCommentPosted,
   setErr,
   err,
+  setNewCommentPosted,
 }) => {
   const { article_id } = useParams();
 
   useEffect(() => {
+    setNewCommentPosted(false);
     getComments(article_id)
       .then((data) => {
         function compare(a, b) {
@@ -169,6 +171,7 @@ const CommentForm = ({
   setNewCommentPosted,
 }) => {
   const [newComment, setNewComment] = useState("Enter comment here...");
+  const [isValid, setIsValid] = useState(true);
   if (comment) {
     console.log(newComment);
     return (
@@ -177,10 +180,10 @@ const CommentForm = ({
         onSubmit={(e) => {
           e.preventDefault();
           if (newComment === "") {
-            document.querySelector("#commentField").className += "invalid";
-            console.log(document.querySelector("#commentField"));
-          } else if (newComment !== "Enter comment here...") {
-            document.querySelector("#commentField").classList.remove("invalid");
+            setIsValid(false);
+            setNewComment("Please enter comment");
+          }
+          if (newComment !== "") {
             setComments((currComments) => {
               let comm = {
                 votes: 0,
@@ -200,11 +203,15 @@ const CommentForm = ({
         <label>Comment: </label>
         <textarea
           id="commentField"
+          className={isValid ? "" : "invalid"}
           value={newComment}
           onClick={() => {
             if (newComment === "Enter comment here...") setNewComment("");
+            if (newComment === "Please enter comment");
+            setNewComment("");
           }}
           onChange={(e) => {
+            setIsValid(true);
             setNewComment(e.target.value);
           }}
         >
