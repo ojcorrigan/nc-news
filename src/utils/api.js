@@ -33,8 +33,18 @@ export const getComments = (article_id) => {
 };
 
 export const postComment = (comment, username, article_id) => {
-  return newsApi.post(`/articles/${article_id}/comments`, {
-    username,
-    body: comment,
+  return newsApi
+    .post(`/articles/${article_id}/comments`, {
+      username,
+      body: comment,
+    })
+    .then(({ data }) => {
+      return data;
+    });
+};
+
+export const deleteComment = (comment_id) => {
+  return newsApi.delete(`comments/${comment_id}`).then((response) => {
+    console.log(response);
   });
 };

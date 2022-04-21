@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
 import { getComments } from "../utils/api";
+import { deleteComment } from "../utils/api";
 
 const username = "cooljmessy";
 
@@ -18,7 +19,6 @@ const SingleArticle = () => {
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
-        setNewCommentPosted(false);
       })
       .catch((err) => {
         setErr(err.response.data.msg);
@@ -140,6 +140,20 @@ const ArticleComments = ({
               <p id="commentBody">{comment.body}</p>
               <p id="commentVotes">Votes: {comment.votes}</p>
               <p id="commentDate">{comment.created_at}</p>
+              {comment.author === username && (
+                <button
+                  onClick={() => {
+                    deleteComment(comment.comment_id);
+                    setComments((currentComms) => {
+                      return currentComms.filter((comm) => {
+                        if (comm.comment_id !== comment.comment_id) return comm;
+                      });
+                    });
+                  }}
+                >
+                  delete comment
+                </button>
+              )}
             </li>
           );
         })}
