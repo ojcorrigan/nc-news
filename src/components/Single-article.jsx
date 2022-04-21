@@ -24,12 +24,10 @@ const SingleArticle = () => {
         setErr(err.response.data.msg);
       });
   }, [newCommentPosted]);
-  console.log(newCommentPosted);
   if (err) {
     return (
       <main>
-        <h2 id="articleHead">{article.title}</h2>
-        <p className="articleP" id="Err">
+        <p className="articleP" id="artErr">
           {err}
         </p>
       </main>
@@ -70,6 +68,8 @@ const SingleArticle = () => {
           onClick={() => {
             if (!addComment) setAddComment(true);
             else setAddComment(false);
+            if (!isOpen) setIsOpen(true);
+            else setIsOpen(false);
           }}
         >
           Add Comment
@@ -97,28 +97,41 @@ const ArticleComments = ({
   setComments,
   comments,
   newCommentPosted,
-  setNewCommentPosted,
+  setErr,
+  err,
 }) => {
-  // const [comments, setComments] = useState([]);
   const { article_id } = useParams();
 
   useEffect(() => {
-    getComments(article_id).then((data) => {
-      function compare(a, b) {
-        const timeA = a.created_at;
-        const timeB = b.created_at;
-        let comparison = 0;
-        if (timeA > timeB) {
-          comparison = -1;
-        } else if (timeA < timeB) {
-          comparison = 1;
+    getComments(article_id)
+      .then((data) => {
+        function compare(a, b) {
+          const timeA = a.created_at;
+          const timeB = b.created_at;
+          let comparison = 0;
+          if (timeA > timeB) {
+            comparison = -1;
+          } else if (timeA < timeB) {
+            comparison = 1;
+          }
+          return comparison;
         }
-        return comparison;
-      }
-      data.comments.sort(compare);
-      setComments(data.comments);
-    });
+        data.comments.sort(compare);
+        setComments(data.comments);
+      })
+      .catch((err) => {
+        setErr(err.response.data.msg);
+      });
   }, [newCommentPosted]);
+  if (err) {
+    return (
+      <main>
+        <p className="commentErr" id="commErr">
+          {err}
+        </p>
+      </main>
+    );
+  }
 
   if (open) {
     return (
