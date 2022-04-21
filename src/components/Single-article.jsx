@@ -154,7 +154,7 @@ const CommentForm = ({
   article_id,
   setNewCommentPosted,
 }) => {
-  const [newComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState("Enter comment here...");
   if (comment) {
     console.log(newComment);
     return (
@@ -162,7 +162,11 @@ const CommentForm = ({
         className="commentForm"
         onSubmit={(e) => {
           e.preventDefault();
-          if (newComment !== "") {
+          if (newComment === "") {
+            document.querySelector("#commentField").className += "invalid";
+            console.log(document.querySelector("#commentField"));
+          } else if (newComment !== "Enter comment here...") {
+            document.querySelector("#commentField").classList.remove("invalid");
             setComments((currComments) => {
               let comm = {
                 votes: 0,
@@ -181,11 +185,17 @@ const CommentForm = ({
       >
         <label>Comment: </label>
         <textarea
+          id="commentField"
           value={newComment}
+          onClick={() => {
+            if (newComment === "Enter comment here...") setNewComment("");
+          }}
           onChange={(e) => {
             setNewComment(e.target.value);
           }}
-        ></textarea>
+        >
+          Please enter comment here...
+        </textarea>
         <button>Submit</button>
       </form>
     );
