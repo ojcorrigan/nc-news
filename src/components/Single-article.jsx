@@ -6,20 +6,36 @@ import { getComments } from "../utils/api";
 const SingleArticle = () => {
   const [article, setArticle] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [err, setErr] = useState(null);
   const { article_id } = useParams();
-
-  useEffect(() => {
-    getSingleArticle(article_id).then((data) => {
-      setArticle(data);
-    });
-  }, [article_id]);
-
   const [comments, setComments] = useState([]);
+
   useEffect(() => {
     getComments(article_id).then((data) => {
       setComments(data.comments);
     });
   }, []);
+
+  useEffect(() => {
+    getSingleArticle(article_id)
+      .then((data) => {
+        setArticle(data);
+      })
+      .catch((err) => {
+        setErr(err.response.data.msg);
+      });
+  }, [article_id]);
+
+  if (err) {
+    return (
+      <main>
+        <h2 id="articleHead">{article.title}</h2>
+        <p className="articleP" id="Err">
+          {err}
+        </p>
+      </main>
+    );
+  }
   return (
     <div>
       <main>
