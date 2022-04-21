@@ -9,6 +9,7 @@
   --beige: #ffecd1;
   --accentOrange: #ff7d00;
   --Umber: #78290f;
+  --Comments: #fbf5ed;
 }
 /*Header*/
 nav {
@@ -39,6 +40,14 @@ nav {
   width: 50%;
   margin: auto;
   border-radius: 10px;
+}
+
+#homeButtonLink {
+  text-align: center;
+}
+
+#home {
+  margin-top: auto;
 }
 
 /*Articles */
@@ -172,10 +181,10 @@ main {
 /*Comments*/
 
 .commentList {
-  width: 85vw;
+  width: 75vw;
   margin: auto;
   list-style: none;
-  background-color: var(--beige);
+  background-color: var(--Comments);
   margin-top: 5px;
   padding: 8px;
   border-radius: 20px;
@@ -256,5 +265,17 @@ main {
 
   .articleP {
     font-size: 1.4rem;
+  }
+
+  /*comments*/
+
+  .commentList {
+    width: 50vw;
+    margin: auto;
+    list-style: none;
+    background-color: var(--Comments);
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 20px;
   }
 }
