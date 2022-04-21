@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
 import { getComments } from "../utils/api";
+import { incVote } from "../utils/api";
 
 const username = "cooljmessy";
 
@@ -12,6 +13,7 @@ const SingleArticle = () => {
   const [addComment, setAddComment] = useState(false);
   const [comments, setComments] = useState([]);
   const [newCommentPosted, setNewCommentPosted] = useState([false]);
+  const [voted, setVoted] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const SingleArticle = () => {
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [newCommentPosted]);
+  }, [newCommentPosted, voted]);
   if (err) {
     return (
       <main>
@@ -54,8 +56,28 @@ const SingleArticle = () => {
           <p className="articleP" id="votes">
             Votes: {article.votes}
           </p>
-          <button id="upVote">Up vote</button>
-          <button id="downVote">Down vote</button>
+          <button
+            onClick={() => {
+              if (!voted) {
+                incVote(1, article_id);
+                setVoted(true);
+              }
+            }}
+            id="upVote"
+          >
+            Up vote
+          </button>
+          <button
+            onClick={() => {
+              if (!voted) {
+                incVote(-1, article_id);
+                setVoted(true);
+              }
+            }}
+            id="downVote"
+          >
+            Down vote
+          </button>
         </div>
         <p className="articleP" id="date">
           {" "}
