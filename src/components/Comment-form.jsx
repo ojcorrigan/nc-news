@@ -8,60 +8,49 @@ const CommentForm = ({
   username,
   setCommentCount,
 }) => {
-  const [newComment, setNewComment] = useState("Enter comment here...");
+  const [newComment, setNewComment] = useState("");
   const [isValid, setIsValid] = useState(true);
+  const [posted, setPosted] = useState(null);
   if (comment) {
     return (
-      <form
-        className="commentForm"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (newComment === "") {
-            setIsValid(false);
-            setNewComment("Please enter comment");
-          } else if (newComment === "Enter comment here...") {
-            setIsValid(false);
-          } else if (newComment === "Please enter comment") {
-            setIsValid(false);
-          } else if (newComment !== "") {
-            setComments((currComments) => {
-              let comm = {
-                votes: 0,
-                author: username,
-                body: newComment,
-                created_at: "Just now",
-                comment_id: "TBC",
-              };
-              return [comm, ...currComments];
-            });
-            setCommentCount((currentComms) => {
-              return currentComms + 1;
-            });
-            postComment(newComment, username, article_id);
-
-            setNewComment("");
-          }
-        }}
-      >
-        <label>Comment: </label>
-        <textarea
-          id="commentField"
-          className={isValid ? "" : "invalid"}
-          value={newComment}
-          onClick={() => {
-            if (newComment === "Enter comment here...") setNewComment("");
-            if (newComment === "Please enter comment");
-            setNewComment("");
-          }}
-          onChange={(e) => {
-            setIsValid(true);
-            setNewComment(e.target.value);
+      <section>
+        {posted && <p className="errorMsg">Error posting comment</p>}
+        <form
+          className="commentForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            postComment(newComment, username, article_id)
+              .then((data) => {
+                setNewComment("");
+                setComments((currComments) => {
+                  return [data.comment, ...currComments];
+                });
+                setCommentCount((currentComms) => {
+                  return currentComms + 1;
+                });
+              })
+              .catch((err) => {
+                setPosted(err);
+              });
           }}
         >
-          Please enter comment here...
-        </textarea>
-        <button>Submit</button>
-      </form>
+          <label>Comment: </label>
+          <textarea
+            id="commentField"
+            required
+            placeholder="Please comment here"
+            className={isValid ? "" : "invalid"}
+            value={newComment}
+            onChange={(e) => {
+              setIsValid(true);
+              setNewComment(e.target.value);
+            }}
+          >
+            Please enter comment here...
+          </textarea>
+          <button>Submit</button>
+        </form>
+      </section>
     );
   }
 };

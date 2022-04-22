@@ -238,6 +238,10 @@ main {
   background-color: red;
 }
 
+.errorMsg {
+  color: red;
+}
+
 /*Missing*/
 
 .missingPage {
