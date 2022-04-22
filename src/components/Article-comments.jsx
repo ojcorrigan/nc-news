@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { useEffect } from "react";
 import { deleteComment } from "../utils/api";
 import { getComments } from "../utils/api";
 
@@ -6,15 +6,13 @@ const ArticleComments = ({
   open,
   setComments,
   comments,
-  commentChange,
   setErr,
   err,
-  setCommentChange,
   username,
   article_id,
+  setCommentCount,
 }) => {
   useEffect(() => {
-    setCommentChange(false);
     getComments(article_id)
       .then((data) => {
         function compare(a, b) {
@@ -34,7 +32,7 @@ const ArticleComments = ({
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [commentChange]);
+  }, []);
   if (err) {
     return (
       <main>
@@ -55,11 +53,13 @@ const ArticleComments = ({
               <p id="commentBody">{comment.body}</p>
               <p id="commentVotes">Votes: {comment.votes}</p>
               <p id="commentDate">{comment.created_at}</p>
-              {comment.author === username && (
+              {comment.author === username && comment.comment_id !== "TBC" && (
                 <button
                   onClick={() => {
+                    setCommentCount((currentCount) => {
+                      return (currentCount -= 1);
+                    });
                     deleteComment(comment.comment_id);
-                    setCommentChange(true);
                     setComments((currentComms) => {
                       return currentComms.filter((comm) => {
                         if (comm.comment_id !== comment.comment_id) return comm;

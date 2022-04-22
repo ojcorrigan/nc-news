@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
 import CommentForm from "./Comment-form";
 import ArticleComments from "./Article-comments";
 import ArticleVotes from "./Article-votes";
+import RouteMissing from "./Route-missing";
 const username = "cooljmessy";
 
 const SingleArticle = () => {
@@ -12,11 +13,10 @@ const SingleArticle = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [comments, setComments] = useState([]);
-  const [commentChange, setCommentChange] = useState(false);
   const { article_id } = useParams();
+  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
-    setCommentChange(false);
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
@@ -24,15 +24,9 @@ const SingleArticle = () => {
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [commentChange]);
+  }, []);
   if (err) {
-    return (
-      <main>
-        <p className="articleP" id="artErr">
-          {err}
-        </p>
-      </main>
-    );
+    return <RouteMissing></RouteMissing>;
   }
   return (
     <div>
@@ -48,7 +42,7 @@ const SingleArticle = () => {
           {article.body}
         </p>
         <p className="articleP" id="comment_count">
-          Comments: {article.comment_count}
+          Comments: {Number(article.comment_count) + commentCount}
         </p>
         <ArticleVotes
           votes={article.votes}
@@ -74,18 +68,17 @@ const SingleArticle = () => {
         comment={addComment}
         setComments={setComments}
         article_id={article_id}
-        setCommentChange={setCommentChange}
         postComment={postComment}
         username={username}
+        setCommentCount={setCommentCount}
       ></CommentForm>
       <ArticleComments
         open={isOpen}
         setComments={setComments}
         comments={comments}
-        setCommentChange={setCommentChange}
-        commentChange={commentChange}
         username={username}
         article_id={article_id}
+        setCommentCount={setCommentCount}
       ></ArticleComments>
     </div>
   );
