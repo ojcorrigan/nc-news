@@ -9,18 +9,22 @@ const Articles = () => {
   const [order, setOrder] = useState(undefined);
   const [seeOnly, setSeeOnly] = useState("");
   const [byVotes, setByVotes] = useState(false);
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
-    getArticles(sortBy, order, seeOnly).then((data) => {
-      if (byVotes) {
-        let sorted = sortFunc(data.articles, order);
-        setArticles(sorted);
-      } else {
-        setArticles(data.articles);
-      }
-    });
+    getArticles(sortBy, order, seeOnly)
+      .then((data) => {
+        if (byVotes) {
+          let sorted = sortFunc(data.articles, order);
+          setArticles(sorted);
+        } else {
+          setArticles(data.articles);
+        }
+      })
+      .catch((err) => {
+        setErr(err.response.data.msg);
+      });
   }, [sortBy, order, seeOnly, byVotes]);
-  console.log(articles);
   return (
     <section>
       <form
@@ -100,19 +104,20 @@ const Articles = () => {
             <li key={article.article_id}>
               <Link
                 to={`/articles/${article.article_id}`}
-                state={{}}
                 className="articleTitle"
               >
                 {article.title}
               </Link>
-              <p
-                className="articleTopic"
-                onClick={() => {
-                  setSeeOnly({ topic: article.topic });
-                }}
-              >
-                {article.topic}
-              </p>
+              <Link to={`/articles?topic=${article.topic}`}>
+                <p
+                  className="articleTopic"
+                  onClick={() => {
+                    setSeeOnly({ topic: article.topic });
+                  }}
+                >
+                  {article.topic}
+                </p>
+              </Link>
               <p className="articleAuthor">{article.author}</p>
               <p>Votes: {article.votes}</p>
             </li>

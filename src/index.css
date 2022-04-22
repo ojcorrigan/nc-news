@@ -238,6 +238,27 @@ main {
   background-color: red;
 }
 
+/*Missing*/
+
+.missingPage {
+  width: 95vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#missingDog {
+  width: 70vw;
+  height: auto;
+  max-width: 837px;
+  max-height: 895px;
+}
+
+#missingText {
+  font-size: 2.5rem;
+}
+
 @media screen and (min-width: 945px) {
   /*Articles*/
   .filter {
@@ -266,15 +287,17 @@ main {
   }
 
   section {
-    width: 80vw;
+    width: 95vw;
     margin: auto;
   }
   .articleList {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
   .articleList li {
     width: 45%;
+    max-width: 665px;
     height: 150px;
     margin: 10px;
     font-size: 1.4rem;
@@ -301,4 +324,7 @@ main {
     padding: 8px;
     border-radius: 20px;
   }
+}
+
+@media screen and (min-width: 1890px) {
 }

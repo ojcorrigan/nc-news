@@ -16,6 +16,7 @@ export const getArticles = (sortby, order, seeOnly) => {
       },
     })
     .then(({ data }) => {
+      console.log(data);
       return data;
     });
 };
@@ -44,9 +45,7 @@ export const postComment = (comment, username, article_id) => {
 };
 
 export const deleteComment = (comment_id) => {
-  return newsApi.delete(`comments/${comment_id}`).then((response) => {
-    console.log(response);
-  });
+  return newsApi.delete(`comments/${comment_id}`).then((response) => {});
 };
 
 export const incVote = (num, article_id) => {

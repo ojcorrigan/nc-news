@@ -4,6 +4,7 @@ import { getSingleArticle, postComment } from "../utils/api";
 import CommentForm from "./Comment-form";
 import ArticleComments from "./Article-comments";
 import ArticleVotes from "./Article-votes";
+import RouteMissing from "./Route-missing";
 const username = "cooljmessy";
 
 const SingleArticle = () => {
@@ -26,13 +27,7 @@ const SingleArticle = () => {
       });
   }, [commentChange]);
   if (err) {
-    return (
-      <main>
-        <p className="articleP" id="artErr">
-          {err}
-        </p>
-      </main>
-    );
+    return <RouteMissing></RouteMissing>;
   }
   return (
     <div>
