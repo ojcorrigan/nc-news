@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import { Link } from "react-router-dom";
+import sortFunc from "../utils/helper-funcs";
 import { useSearchParams } from "react-router-dom";
 import RouteMissing from "./Route-missing";
-import sortFunc from "../utils/helper-funcs";
-import Loading from "./Loading";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -14,31 +13,24 @@ const Articles = () => {
   const [byVotes, setByVotes] = useState(false);
   const [err, setErr] = useState(null);
   const [searchParams] = useSearchParams();
-
   useEffect(() => {
     let topic = searchParams.get("topic");
     if (topic) setSeeOnly(topic);
     getArticles(sortBy, order, seeOnly)
       .then((data) => {
         if (byVotes) {
-          let sorted = sortFunc(data.articles, order);
-          setArticles(sorted);
-        } else {
+          sortFunc(data.articles);
           setArticles(data.articles);
-        }
+        } else setArticles(data.articles);
       })
       .catch((error) => {
         setErr(error);
       });
   }, [sortBy, order, seeOnly, byVotes]);
-
   if (err) {
+    console.log(err);
     return <RouteMissing />;
   }
-  if (articles.length === 0) {
-    return <Loading />;
-  }
-
   return (
     <section>
       <form
@@ -64,7 +56,7 @@ const Articles = () => {
         >
           Desc
         </button>
-        <label>Sort by:</label>
+        <label>Sort By:</label>
         <button
           className="articleSort"
           id="author"
@@ -127,7 +119,7 @@ const Articles = () => {
                 <p
                   className="articleTopic"
                   onClick={() => {
-                    setSeeOnly({ topic: article.topic });
+                    setSeeOnly(article.topic);
                   }}
                 >
                   {article.topic}
@@ -142,5 +134,4 @@ const Articles = () => {
     </section>
   );
 };
-
 export default Articles;

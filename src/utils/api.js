@@ -15,7 +15,6 @@ export const getArticles = (sortby, order, seeOnly) => {
       },
     })
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
 };
