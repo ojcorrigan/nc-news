@@ -3,6 +3,7 @@ import { getArticles } from "../utils/api";
 import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import RouteMissing from "./Route-missing";
+import sortFunc from "../utils/helper-funcs";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -13,17 +14,38 @@ const Articles = () => {
   const [err, setErr] = useState(null);
   const [searchParams] = useSearchParams();
 
+  // useEffect(() => {
+  //   getArticles(sortBy, order, seeOnly)
+  //     .then((data) => {
+  //       if (byVotes) {
+  //         let sorted = sortFunc(data.articles, order);
+  //         setArticles(sorted);
+  //       } else {
+  //         setArticles(data.articles);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       setErr(err.response.data.msg);
+  //     });
+  // }, [sortBy, order, seeOnly, byVotes]);
+
   useEffect(() => {
     let topic = searchParams.get("topic");
     if (topic) setSeeOnly(topic);
     getArticles(sortBy, order, seeOnly)
       .then((data) => {
-        setArticles(data.articles);
+        if (byVotes) {
+          let sorted = sortFunc(data.articles, order);
+          setArticles(sorted);
+        } else {
+          setArticles(data.articles);
+        }
+        // setArticles(data.articles);
       })
       .catch((error) => {
         setErr(error);
       });
-  }, [sortBy, order, seeOnly]);
+  }, [sortBy, order, seeOnly, byVotes]);
 
   if (err) {
     return <RouteMissing />;
@@ -36,7 +58,7 @@ const Articles = () => {
           e.preventDefault();
         }}
       >
-        <label>Sort: </label>
+        <label>Order: </label>
         <button
           className="articleOrder"
           onClick={() => {
@@ -53,6 +75,7 @@ const Articles = () => {
         >
           Desc
         </button>
+        <label>Sort by:</label>
         <button
           className="articleSort"
           id="author"

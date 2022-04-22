@@ -21,4 +21,19 @@ export const sortFunc = (articlesArr, order) => {
   return articlesArr.sort(compare);
 };
 
-export default sortFunc;
+export const commentsSort = (data) => {
+  function compare(a, b) {
+    const timeA = a.created_at;
+    const timeB = b.created_at;
+    let comparison = 0;
+    if (timeA > timeB) {
+      comparison = -1;
+    } else if (timeA < timeB) {
+      comparison = 1;
+    }
+    return comparison;
+  }
+  return data.comments.sort(compare);
+};
+
+export default { sortFunc, commentsSort };
