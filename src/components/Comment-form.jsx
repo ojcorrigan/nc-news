@@ -4,7 +4,6 @@ const CommentForm = ({
   comment,
   setComments,
   article_id,
-  setCommentChange,
   postComment,
   username,
   setCommentCount,

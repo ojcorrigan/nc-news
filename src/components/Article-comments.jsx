@@ -6,16 +6,13 @@ const ArticleComments = ({
   open,
   setComments,
   comments,
-  // commentChange,
   setErr,
   err,
-  setCommentChange,
   username,
   article_id,
   setCommentCount,
 }) => {
   useEffect(() => {
-    setCommentChange(false);
     getComments(article_id)
       .then((data) => {
         function compare(a, b) {

@@ -13,12 +13,10 @@ const SingleArticle = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [comments, setComments] = useState([]);
-  const [commentChange, setCommentChange] = useState(false);
   const { article_id } = useParams();
   const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
-    setCommentChange(false);
     getSingleArticle(article_id)
       .then((data) => {
         setArticle(data);
@@ -26,7 +24,7 @@ const SingleArticle = () => {
       .catch((err) => {
         setErr(err.response.data.msg);
       });
-  }, [commentChange]);
+  }, []);
   if (err) {
     return <RouteMissing></RouteMissing>;
   }
@@ -70,7 +68,6 @@ const SingleArticle = () => {
         comment={addComment}
         setComments={setComments}
         article_id={article_id}
-        setCommentChange={setCommentChange}
         postComment={postComment}
         username={username}
         setCommentCount={setCommentCount}
@@ -79,8 +76,6 @@ const SingleArticle = () => {
         open={isOpen}
         setComments={setComments}
         comments={comments}
-        setCommentChange={setCommentChange}
-        // commentChange={commentChange}
         username={username}
         article_id={article_id}
         setCommentCount={setCommentCount}
