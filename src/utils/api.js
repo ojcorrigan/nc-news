@@ -6,13 +6,12 @@ const newsApi = axios.create({
 
 export const getArticles = (sortby, order, seeOnly) => {
   let ext = "/articles";
-
   return newsApi
     .get(ext, {
       params: {
         sortby,
         order,
-        topic: seeOnly.topic,
+        topic: seeOnly,
       },
     })
     .then(({ data }) => {
