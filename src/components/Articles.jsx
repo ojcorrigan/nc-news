@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import RouteMissing from "./Route-missing";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -29,7 +30,7 @@ const Articles = () => {
   }, [sortBy, order, seeOnly]);
 
   if (err) {
-    return <p>Uh Oh!!</p>;
+    return <RouteMissing></RouteMissing>;
   }
 
   return (
