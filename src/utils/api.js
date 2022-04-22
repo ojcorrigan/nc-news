@@ -6,13 +6,12 @@ const newsApi = axios.create({
 
 export const getArticles = (sortby, order, seeOnly) => {
   let ext = "/articles";
-
   return newsApi
     .get(ext, {
       params: {
         sortby,
         order,
-        topic: seeOnly.topic,
+        topic: seeOnly,
       },
     })
     .then(({ data }) => {
@@ -44,9 +43,7 @@ export const postComment = (comment, username, article_id) => {
 };
 
 export const deleteComment = (comment_id) => {
-  return newsApi.delete(`comments/${comment_id}`).then((response) => {
-    console.log(response);
-  });
+  return newsApi.delete(`comments/${comment_id}`).then((response) => {});
 };
 
 export const incVote = (num, article_id) => {

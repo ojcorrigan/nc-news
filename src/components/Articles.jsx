@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -12,16 +12,26 @@ const Articles = () => {
 
   const [seeOnly, setSeeOnly] = useState("");
 
-  const { topic } = useParams();
+  const [searchParams] = useSearchParams();
+
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
-    console.log(topic);
-    getArticles(sortBy, order, seeOnly).then((data) => {
-      setArticles(data.articles);
-    });
+    let topic = searchParams.get("topic");
+    if (topic) setSeeOnly(topic);
+    getArticles(sortBy, order, seeOnly)
+      .then((data) => {
+        setArticles(data.articles);
+      })
+      .catch((error) => {
+        setErr(error);
+      });
   }, [sortBy, order, seeOnly]);
 
-  console.log(articles);
+  if (err) {
+    return <p>Uh Oh!!</p>;
+  }
+
   return (
     <section>
       <form
