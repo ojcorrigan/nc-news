@@ -3,17 +3,17 @@ export const sortFunc = (articlesArr, order) => {
     const voteA = a.votes;
     const voteB = b.votes;
     let comparison = 0;
-    if (!order || order === "ASC") {
+    if (order === "ASC") {
       if (voteA > voteB) {
-        comparison = -1;
-      } else if (voteA < voteB) {
         comparison = 1;
+      } else if (voteA < voteB) {
+        comparison = -1;
       }
-    } else if (order === "DESC") {
+    } else if (!order || order === "DESC") {
       if (voteA > voteB) {
-        comparison = 1;
-      } else if (voteA < voteB) {
         comparison = -1;
+      } else if (voteA < voteB) {
+        comparison = 1;
       }
     }
     return comparison;

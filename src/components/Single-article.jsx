@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, postComment } from "../utils/api";
 import CommentForm from "./Comment-form";
@@ -15,6 +15,7 @@ const SingleArticle = () => {
   const [comments, setComments] = useState([]);
   const [commentChange, setCommentChange] = useState(false);
   const { article_id } = useParams();
+  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
     setCommentChange(false);
@@ -43,7 +44,7 @@ const SingleArticle = () => {
           {article.body}
         </p>
         <p className="articleP" id="comment_count">
-          Comments: {article.comment_count}
+          Comments: {Number(article.comment_count) + commentCount}
         </p>
         <ArticleVotes
           votes={article.votes}
@@ -72,15 +73,17 @@ const SingleArticle = () => {
         setCommentChange={setCommentChange}
         postComment={postComment}
         username={username}
+        setCommentCount={setCommentCount}
       ></CommentForm>
       <ArticleComments
         open={isOpen}
         setComments={setComments}
         comments={comments}
         setCommentChange={setCommentChange}
-        commentChange={commentChange}
+        // commentChange={commentChange}
         username={username}
         article_id={article_id}
+        setCommentCount={setCommentCount}
       ></ArticleComments>
     </div>
   );

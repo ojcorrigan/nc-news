@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { useState } from "react";
 
 const CommentForm = ({
   comment,
@@ -7,6 +7,7 @@ const CommentForm = ({
   setCommentChange,
   postComment,
   username,
+  setCommentCount,
 }) => {
   const [newComment, setNewComment] = useState("Enter comment here...");
   const [isValid, setIsValid] = useState(true);
@@ -29,13 +30,16 @@ const CommentForm = ({
                 votes: 0,
                 author: username,
                 body: newComment,
-                created_at: Date.now(),
+                created_at: "Just now",
                 comment_id: "TBC",
               };
               return [comm, ...currComments];
             });
+            setCommentCount((currentComms) => {
+              return currentComms + 1;
+            });
             postComment(newComment, username, article_id);
-            setCommentChange(true);
+
             setNewComment("");
           }
         }}

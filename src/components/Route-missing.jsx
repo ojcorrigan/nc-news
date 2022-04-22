@@ -1,4 +1,3 @@
-import React from "react";
 import dog from "./404-dog.jpeg";
 
 const RouteMissing = () => {

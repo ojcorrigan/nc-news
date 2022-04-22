@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { useState } from "react";
 import { incVote } from "../utils/api";
 
 const ArticleVotes = ({ votes, article_id }) => {
