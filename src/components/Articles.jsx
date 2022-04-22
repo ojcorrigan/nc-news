@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -11,7 +12,10 @@ const Articles = () => {
 
   const [seeOnly, setSeeOnly] = useState("");
 
+  const { topic } = useParams();
+
   useEffect(() => {
+    console.log(topic);
     getArticles(sortBy, order, seeOnly).then((data) => {
       setArticles(data.articles);
     });
@@ -90,22 +94,18 @@ const Articles = () => {
               >
                 {article.title}
               </Link>
-              <p
-                className="articleTopic"
-                onClick={() => {
-                  setSeeOnly({ topic: article.topic });
-                }}
-              >
-                {article.topic}
-              </p>
-              <p
-                className="articleAuthor"
-                onClick={() => {
-                  setSeeOnly({ author: article.author });
-                }}
-              >
-                {article.author}
-              </p>
+              <Link to={`/articles?topic=${article.topic}`}>
+                <p
+                  className="articleTopic"
+                  onClick={() => {
+                    setSeeOnly({ topic: article.topic });
+                  }}
+                >
+                  {article.topic}
+                </p>
+              </Link>
+              <p className="articleAuthor">{article.author}</p>
+              <p>Votes: {article.votes}</p>
             </li>
           );
         })}
