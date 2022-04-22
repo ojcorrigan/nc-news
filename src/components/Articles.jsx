@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import RouteMissing from "./Route-missing";
 import sortFunc from "../utils/helper-funcs";
+import Loading from "./Loading";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -13,21 +14,6 @@ const Articles = () => {
   const [byVotes, setByVotes] = useState(false);
   const [err, setErr] = useState(null);
   const [searchParams] = useSearchParams();
-
-  // useEffect(() => {
-  //   getArticles(sortBy, order, seeOnly)
-  //     .then((data) => {
-  //       if (byVotes) {
-  //         let sorted = sortFunc(data.articles, order);
-  //         setArticles(sorted);
-  //       } else {
-  //         setArticles(data.articles);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       setErr(err.response.data.msg);
-  //     });
-  // }, [sortBy, order, seeOnly, byVotes]);
 
   useEffect(() => {
     let topic = searchParams.get("topic");
@@ -40,7 +26,6 @@ const Articles = () => {
         } else {
           setArticles(data.articles);
         }
-        // setArticles(data.articles);
       })
       .catch((error) => {
         setErr(error);
@@ -50,6 +35,10 @@ const Articles = () => {
   if (err) {
     return <RouteMissing />;
   }
+  if (articles.length === 0) {
+    return <Loading />;
+  }
+
   return (
     <section>
       <form
