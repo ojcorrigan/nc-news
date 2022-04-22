@@ -14,15 +14,18 @@ const Articles = () => {
   const [err, setErr] = useState(null);
   const [searchParams] = useSearchParams();
 
-  let url = useLocation();
-
-  console.log(url);
+  let location = useLocation();
+  let topicQ = searchParams.get("topic");
+  let topic = "";
 
   useEffect(() => {
-    let topic = searchParams.get("topic");
-    if (topic) setSeeOnly(topic);
-    getArticles(sortBy, order, seeOnly)
+    if (topicQ) {
+      topic = topicQ;
+    } else topic = seeOnly;
+
+    getArticles(topic, sortBy, order)
       .then((data) => {
+        topic = "";
         if (byVotes) {
           sortFunc(data.articles, order);
           setArticles(data.articles);
@@ -31,7 +34,7 @@ const Articles = () => {
       .catch((error) => {
         setErr(error);
       });
-  }, [sortBy, order, seeOnly, byVotes, url]);
+  }, [sortBy, order, seeOnly, byVotes, location]);
   if (err) {
     console.log(err);
     return <RouteMissing />;
@@ -124,14 +127,7 @@ const Articles = () => {
                 {article.title}
               </Link>
               <Link to={`/articles?topic=${article.topic}`}>
-                <p
-                  className="articleTopic"
-                  onClick={() => {
-                    setSeeOnly(article.topic);
-                  }}
-                >
-                  {article.topic}
-                </p>
+                <p className="articleTopic">{article.topic}</p>
               </Link>
               <p className="articleAuthor">{article.author}</p>
               <p>Votes: {article.votes}</p>
