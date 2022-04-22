@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router";
+import { useState } from "react";
 
 import Header from "./components/Header";
 import Articles from "./components/Articles";
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Articles />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/articles?topic=:topic" element={<Articles />} />
         <Route path="/articles/:article_id" element={<SingleArticle />} />
         <Route path="*" element={<RouteMissing />} />
       </Routes>

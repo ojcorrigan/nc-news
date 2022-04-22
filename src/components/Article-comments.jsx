@@ -14,12 +14,14 @@ const ArticleComments = ({
   setCommentCount,
 }) => {
   useEffect(() => {
-    getComments(article_id).then((data) => {
-      let sorted = commentsSort(data);
-      setComments(sorted).catch((err) => {
+    getComments(article_id)
+      .then((data) => {
+        let sorted = commentsSort(data);
+        setComments(sorted);
+      })
+      .catch((err) => {
         setErr(err.response.data.msg);
       });
-    });
   }, []);
   if (err) {
     return (
