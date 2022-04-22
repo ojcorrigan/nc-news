@@ -30,7 +30,7 @@ const Articles = () => {
   }, [sortBy, order, seeOnly]);
 
   if (err) {
-    return <RouteMissing></RouteMissing>;
+    return <RouteMissing />;
   }
 
   return (
