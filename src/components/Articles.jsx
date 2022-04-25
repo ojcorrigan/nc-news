@@ -28,7 +28,9 @@ const Articles = ({ err, setErr }) => {
         if (byVotes) {
           sortFunc(data.articles, order);
           setArticles(data.articles);
-        } else setArticles(data.articles);
+        } else {
+          setArticles(data.articles);
+        }
       })
       .catch((error) => {
         setErr(error);

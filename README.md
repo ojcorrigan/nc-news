@@ -17,19 +17,30 @@ The app allows the user to:
 
 The app was created in React and written in Vscode. The whole project was managed using Trello.
 
-to see the app live visit:
+To see the app live visit:
 
-also to see the backend I created: https://ojs-news-app1.herokuapp.com/api
+Also to see the backend I created: https://ojs-news-app1.herokuapp.com/api
 
 ---
 
 ## Step by step.
 
-to get the app running first fork and then clone the repo to your local machine.
+To get the app running first fork and clone the repo to your own github. Click the fork button and select where you would like to copy the repo to.
+
+Once you have done this copy the link from github. To clone to your local machine navigate to the folder you wish to clone it to and type into the commandline:
+
+`git clone <YOUR URL HERE>`
 
 once you have cloned the repo you will need to install the dependencies. in the command line type:
 
 `npm i`
+
+you should have the following listed in your package.json:
+
+- axios
+- react
+- react-dom
+- react-router-dom
 
 once all the dependencies are installed you will just need to is run
 

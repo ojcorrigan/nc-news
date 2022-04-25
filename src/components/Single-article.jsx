@@ -70,6 +70,7 @@ const SingleArticle = ({ user, err, setErr }) => {
         postComment={postComment}
         username={user.username}
         setCommentCount={setCommentCount}
+        setErr={setErr}
       ></CommentForm>
       <ArticleComments
         open={isOpen}
@@ -78,6 +79,7 @@ const SingleArticle = ({ user, err, setErr }) => {
         username={user.username}
         article_id={article_id}
         setCommentCount={setCommentCount}
+        setErr={setErr}
       ></ArticleComments>
     </div>
   );

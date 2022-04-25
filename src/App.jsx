@@ -9,9 +9,10 @@ import RouteMissing from "./components/Route-missing";
 function App() {
   const [user, setUser] = useState({});
   const [err, setErr] = useState(null);
+
   return (
     <>
-      <Header setUser={setUser} user={user} />
+      <Header setUser={setUser} user={user} setErr={setErr} />
       <Routes>
         <Route
           path="/"
@@ -20,10 +21,6 @@ function App() {
         <Route
           path="/articles"
           element={<Articles err={err} setErr={setErr} />}
-        />
-        <Route
-          path="/articles?topic=:topic"
-          element={<Articles user={user} err={err} setErr={setErr} />}
         />
         <Route
           path="/articles/:article_id"

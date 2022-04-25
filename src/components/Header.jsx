@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 
-export const Header = ({ setUser, user }) => {
+export const Header = ({ setUser, user, setErr }) => {
   return (
     <nav>
       <h1 className="headTitle">Welcome to Northcoders News</h1>
       <Link to="/" id="homeButtonLink">
-        <button className="headButton" id="home">
+        <button
+          className="headButton"
+          id="home"
+          onClick={() => {
+            setErr(null);
+          }}
+        >
           Home
         </button>
       </Link>
