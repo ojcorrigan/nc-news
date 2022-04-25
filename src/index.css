@@ -285,6 +285,7 @@ main {
   height: auto;
   max-width: 837px;
   max-height: 895px;
+  border-radius: 25%;
 }
 
 #loadingText {
