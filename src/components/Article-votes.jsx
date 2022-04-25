@@ -1,7 +1,8 @@
+import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { incVote } from "../utils/api";
 
-const ArticleVotes = ({ votes, article_id }) => {
+const ArticleVotes = ({ votes, article_id, user }) => {
   const [upVote, setUpVote] = useState(false);
   const [downVote, setDownVote] = useState(false);
   const [votesState, setVoteState] = useState(0);
@@ -9,7 +10,7 @@ const ArticleVotes = ({ votes, article_id }) => {
     <div>
       <p>Votes: {votesState + votes} </p>
       <button
-        disabled={upVote}
+        disabled={upVote || !user.username}
         onClick={() => {
           let inc = 1;
           if (downVote) {
@@ -24,7 +25,7 @@ const ArticleVotes = ({ votes, article_id }) => {
         Up vote
       </button>
       <button
-        disabled={downVote}
+        disabled={downVote || !user.username}
         onClick={() => {
           let inc = -1;
           if (upVote) {

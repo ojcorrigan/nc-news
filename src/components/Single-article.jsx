@@ -45,6 +45,7 @@ const SingleArticle = ({ user, err, setErr }) => {
         <ArticleVotes
           votes={article.votes}
           article_id={article.article_id}
+          user={user}
         ></ArticleVotes>
         <p className="articleP" id="date">
           {" "}
