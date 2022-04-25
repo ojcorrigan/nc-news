@@ -1,4 +1,4 @@
-import dog from "./404-dog.jpeg";
+import dog from "../Images/404-dog.jpeg";
 
 const RouteMissing = () => {
   return (

@@ -1,30 +1,46 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
-import { Link } from "react-router-dom";
-import sortFunc from "../utils/helper-funcs";
+import sortFunc from "../utils/newSort";
+import { useSearchParams, Link, useLocation } from "react-router-dom";
+import RouteMissing from "./Route-missing";
+import Loading from "./Loading";
 
-const Articles = () => {
+const Articles = ({ err, setErr }) => {
   const [articles, setArticles] = useState([]);
   const [sortBy, setSortBy] = useState(undefined);
   const [order, setOrder] = useState(undefined);
   const [seeOnly, setSeeOnly] = useState("");
   const [byVotes, setByVotes] = useState(false);
-  const [err, setErr] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  let location = useLocation();
+  let topicQ = searchParams.get("topic");
+  let topic = "";
 
   useEffect(() => {
-    getArticles(sortBy, order, seeOnly)
+    if (topicQ) {
+      topic = topicQ;
+    } else topic = seeOnly;
+
+    getArticles(topic, sortBy, order)
       .then((data) => {
+        topic = "";
         if (byVotes) {
-          let sorted = sortFunc(data.articles, order);
-          setArticles(sorted);
-        } else {
+          sortFunc(data.articles, order);
           setArticles(data.articles);
-        }
+        } else setArticles(data.articles);
       })
-      .catch((err) => {
-        setErr(err.response.data.msg);
+      .catch((error) => {
+        setErr(error);
       });
-  }, [sortBy, order, seeOnly, byVotes]);
+  }, [sortBy, order, seeOnly, byVotes, location]);
+  if (err) {
+    console.log(err);
+    return <RouteMissing />;
+  }
+  if (articles.length === 0) {
+    return <Loading />;
+  }
   return (
     <section>
       <form
@@ -33,7 +49,7 @@ const Articles = () => {
           e.preventDefault();
         }}
       >
-        <label>Sort: </label>
+        <label>Order: </label>
         <button
           className="articleOrder"
           onClick={() => {
@@ -50,6 +66,7 @@ const Articles = () => {
         >
           Desc
         </button>
+        <label>Sort By:</label>
         <button
           className="articleSort"
           id="author"
@@ -109,14 +126,7 @@ const Articles = () => {
                 {article.title}
               </Link>
               <Link to={`/articles?topic=${article.topic}`}>
-                <p
-                  className="articleTopic"
-                  onClick={() => {
-                    setSeeOnly({ topic: article.topic });
-                  }}
-                >
-                  {article.topic}
-                </p>
+                <p className="articleTopic">{article.topic}</p>
               </Link>
               <p className="articleAuthor">{article.author}</p>
               <p>Votes: {article.votes}</p>
@@ -127,5 +137,4 @@ const Articles = () => {
     </section>
   );
 };
-
 export default Articles;

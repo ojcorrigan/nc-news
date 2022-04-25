@@ -20,11 +20,13 @@ nav {
   grid-template-rows: 2;
   grid-template-areas:
     "title title"
-    "home add";
+    "home login";
 }
 .headTitle {
   grid-area: title;
   margin: auto;
+  font-size: 3rem;
+  color: White;
 }
 
 #home {
@@ -32,7 +34,13 @@ nav {
 }
 
 #add {
-  grid-area: add;
+  grid-area: login;
+}
+
+#loggedIn {
+  grid-area: login;
+  color: white;
+  margin: auto;
 }
 
 .headButton {
@@ -241,7 +249,6 @@ main {
 .errorMsg {
   color: red;
 }
-
 /*Missing*/
 
 .missingPage {
@@ -260,6 +267,27 @@ main {
 }
 
 #missingText {
+  font-size: 2.5rem;
+}
+
+/*Loading*/
+
+.loading {
+  width: 95vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cabinet {
+  width: 70vw;
+  height: auto;
+  max-width: 837px;
+  max-height: 895px;
+}
+
+#loadingText {
   font-size: 2.5rem;
 }
 

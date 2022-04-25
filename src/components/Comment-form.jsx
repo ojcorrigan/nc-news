@@ -7,14 +7,14 @@ const CommentForm = ({
   postComment,
   username,
   setCommentCount,
+  err,
+  setErr,
 }) => {
   const [newComment, setNewComment] = useState("");
-  const [isValid, setIsValid] = useState(true);
-  const [posted, setPosted] = useState(null);
   if (comment) {
     return (
       <section>
-        {posted && <p className="errorMsg">Error posting comment</p>}
+        {err && <p className="errorMsg">Error posting comment</p>}
         <form
           className="commentForm"
           onSubmit={(e) => {
@@ -30,7 +30,7 @@ const CommentForm = ({
                 });
               })
               .catch((err) => {
-                setPosted(err);
+                setErr(err);
               });
           }}
         >
@@ -39,10 +39,8 @@ const CommentForm = ({
             id="commentField"
             required
             placeholder="Please comment here"
-            className={isValid ? "" : "invalid"}
             value={newComment}
             onChange={(e) => {
-              setIsValid(true);
               setNewComment(e.target.value);
             }}
           >
