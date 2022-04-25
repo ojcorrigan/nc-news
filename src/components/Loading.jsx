@@ -3,7 +3,7 @@ const Loading = () => {
   return (
     <section className="loading">
       <img id="cabinet" src={cabinet}></img>
-      <p>We're just finding the articles</p>
+      <p id="loadingText">We're just finding the articles</p>
     </section>
   );
 };

@@ -6,9 +6,8 @@ import ArticleComments from "./Article-comments";
 import ArticleVotes from "./Article-votes";
 import RouteMissing from "./Route-missing";
 
-const SingleArticle = ({ user }) => {
+const SingleArticle = ({ user, err, setErr }) => {
   const [article, setArticle] = useState([]);
-  const [err, setErr] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [comments, setComments] = useState([]);

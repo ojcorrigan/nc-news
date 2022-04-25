@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { deleteComment } from "../utils/api";
 import { getComments } from "../utils/api";
 import { commentsSort } from "../utils/helper-funcs";
-// TODO set use login to hardcode user
 
 const ArticleComments = ({
   open,

@@ -5,13 +5,12 @@ import { useSearchParams, Link, useLocation } from "react-router-dom";
 import RouteMissing from "./Route-missing";
 import Loading from "./Loading";
 
-const Articles = () => {
+const Articles = ({ err, setErr }) => {
   const [articles, setArticles] = useState([]);
   const [sortBy, setSortBy] = useState(undefined);
   const [order, setOrder] = useState(undefined);
   const [seeOnly, setSeeOnly] = useState("");
   const [byVotes, setByVotes] = useState(false);
-  const [err, setErr] = useState(null);
   const [searchParams] = useSearchParams();
 
   let location = useLocation();
