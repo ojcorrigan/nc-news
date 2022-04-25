@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export const Header = ({ setUser, user }) => {
-  console.log(user.username);
   return (
     <nav>
       <h1 className="headTitle">Welcome to Northcoders News</h1>

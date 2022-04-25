@@ -6,7 +6,6 @@ const newsApi = axios.create({
 
 export const getArticles = (seeOnly, sortby, order) => {
   let ext = "/articles";
-  console.log(seeOnly);
   return newsApi
     .get(ext, {
       params: {

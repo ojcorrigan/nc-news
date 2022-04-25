@@ -35,7 +35,6 @@ const Articles = ({ err, setErr }) => {
       });
   }, [sortBy, order, seeOnly, byVotes, location]);
   if (err) {
-    console.log(err);
     return <RouteMissing />;
   }
   if (articles.length === 0) {
