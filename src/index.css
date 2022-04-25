@@ -20,11 +20,12 @@ nav {
   grid-template-rows: 2;
   grid-template-areas:
     "title title"
-    "home add";
+    "home login";
 }
 .headTitle {
   grid-area: title;
   margin: auto;
+  font-size: 3rem;
 }
 
 #home {
@@ -32,7 +33,13 @@ nav {
 }
 
 #add {
-  grid-area: add;
+  grid-area: login;
+}
+
+#loggedIn {
+  grid-area: login;
+  color: white;
+  margin: auto;
 }
 
 .headButton {

@@ -5,9 +5,8 @@ import CommentForm from "./Comment-form";
 import ArticleComments from "./Article-comments";
 import ArticleVotes from "./Article-votes";
 import RouteMissing from "./Route-missing";
-const username = "cooljmessy";
 
-const SingleArticle = () => {
+const SingleArticle = ({ user }) => {
   const [article, setArticle] = useState([]);
   const [err, setErr] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -69,14 +68,14 @@ const SingleArticle = () => {
         setComments={setComments}
         article_id={article_id}
         postComment={postComment}
-        username={username}
+        username={user.username}
         setCommentCount={setCommentCount}
       ></CommentForm>
       <ArticleComments
         open={isOpen}
         setComments={setComments}
         comments={comments}
-        username={username}
+        username={user.username}
         article_id={article_id}
         setCommentCount={setCommentCount}
       ></ArticleComments>

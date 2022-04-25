@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-export const Header = (user) => {
+export const Header = ({ setUser, user }) => {
+  console.log(user.username);
   return (
     <nav>
       <h1 className="headTitle">Welcome to Northcoders News</h1>
@@ -9,11 +10,19 @@ export const Header = (user) => {
           Home
         </button>
       </Link>
-      {/* TODO - set up a login button */}
-      {!user.userName && (
-        <button className="headButton" id="add">
+      {!user.username && (
+        <button
+          className="headButton"
+          id="add"
+          onClick={() => {
+            setUser({ username: "cooljmessy", role: "user" });
+          }}
+        >
           Login
         </button>
+      )}
+      {user.username && (
+        <p id="loggedIn">You're logged in as {user.username}</p>
       )}
     </nav>
   );

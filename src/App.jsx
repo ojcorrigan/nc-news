@@ -12,7 +12,7 @@ function App() {
   const [user, setUser] = useState({});
   return (
     <>
-      <Header setUser={setUser} />
+      <Header setUser={setUser} user={user} />
       <Routes>
         <Route path="/" element={<Articles user={user} />} />
         <Route path="/articles" element={<Articles user={user} />} />
