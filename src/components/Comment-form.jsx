@@ -1,4 +1,5 @@
 import { useState } from "react";
+// TODO use user to allow deletes etc.
 
 const CommentForm = ({
   comment,

@@ -9,15 +9,22 @@ import RouteMissing from "./components/Route-missing";
 // const user = "grumpy19";
 
 function App() {
+  const [user, setUser] = useState({});
   return (
     <>
-      <Header />
+      <Header setUser={setUser} />
       <Routes>
-        <Route path="/" element={<Articles />} />
-        <Route path="/articles" element={<Articles />} />
-        <Route path="/articles?topic=:topic" element={<Articles />} />
-        <Route path="/articles/:article_id" element={<SingleArticle />} />
-        <Route path="*" element={<RouteMissing />} />
+        <Route path="/" element={<Articles user={user} />} />
+        <Route path="/articles" element={<Articles user={user} />} />
+        <Route
+          path="/articles?topic=:topic"
+          element={<Articles user={user} />}
+        />
+        <Route
+          path="/articles/:article_id"
+          element={<SingleArticle user={user} />}
+        />
+        <Route path="*" element={<RouteMissing user={user} />} />
       </Routes>
     </>
   );

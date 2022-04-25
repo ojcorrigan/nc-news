@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const Header = () => {
+export const Header = (user) => {
   return (
     <nav>
       <h1 className="headTitle">Welcome to Northcoders News</h1>
@@ -9,9 +9,12 @@ export const Header = () => {
           Home
         </button>
       </Link>
-      <button className="headButton" id="add">
-        Add Article
-      </button>
+      {/* TODO - set up a login button */}
+      {!user.userName && (
+        <button className="headButton" id="add">
+          Login
+        </button>
+      )}
     </nav>
   );
 };
