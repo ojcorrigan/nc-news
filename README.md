@@ -17,7 +17,7 @@ The app allows the user to:
 
 The app was created in React and written in Vscode. The whole project was managed using Trello.
 
-To see the app live visit:
+To see the app live visit: https://ojcorrigan-nc-news.netlify.app
 
 Also to see the backend I created: https://ojs-news-app1.herokuapp.com/api
 
