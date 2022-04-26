@@ -23,65 +23,66 @@ const SingleArticle = ({ user, err, setErr }) => {
         setErr(err.response.data.msg);
       });
   }, []);
-  if (err === "Article not found") {
+  if (err) {
     return <RouteMissing />;
+  } else {
+    return (
+      <div>
+        <main>
+          <h2 id="articleHead">{article.title}</h2>
+          <p className="articleP" id="topic">
+            {article.topic}
+          </p>
+          <p className="articleP" id="singleAuthor">
+            {article.author}
+          </p>
+          <p className="articleP" id="body">
+            {article.body}
+          </p>
+          <p className="articleP" id="comment_count">
+            Comments: {Number(article.comment_count) + commentCount}
+          </p>
+          <ArticleVotes
+            votes={article.votes}
+            article_id={article.article_id}
+            user={user}
+          ></ArticleVotes>
+          <p className="articleP" id="date">
+            {" "}
+            {article.created_at}
+          </p>
+          <button
+            id="commentButt"
+            onClick={() => {
+              if (!addComment) setAddComment(true);
+              else setAddComment(false);
+              if (!isOpen) setIsOpen(true);
+              else setIsOpen(false);
+            }}
+          >
+            View Comments
+          </button>
+        </main>
+        <CommentForm
+          comment={addComment}
+          setComments={setComments}
+          article_id={article_id}
+          postComment={postComment}
+          username={user.username}
+          setCommentCount={setCommentCount}
+          setErr={setErr}
+        ></CommentForm>
+        <ArticleComments
+          open={isOpen}
+          setComments={setComments}
+          comments={comments}
+          username={user.username}
+          article_id={article_id}
+          setCommentCount={setCommentCount}
+          setErr={setErr}
+        ></ArticleComments>
+      </div>
+    );
   }
-  return (
-    <div>
-      <main>
-        <h2 id="articleHead">{article.title}</h2>
-        <p className="articleP" id="topic">
-          {article.topic}
-        </p>
-        <p className="articleP" id="singleAuthor">
-          {article.author}
-        </p>
-        <p className="articleP" id="body">
-          {article.body}
-        </p>
-        <p className="articleP" id="comment_count">
-          Comments: {Number(article.comment_count) + commentCount}
-        </p>
-        <ArticleVotes
-          votes={article.votes}
-          article_id={article.article_id}
-          user={user}
-        ></ArticleVotes>
-        <p className="articleP" id="date">
-          {" "}
-          {article.created_at}
-        </p>
-        <button
-          id="commentButt"
-          onClick={() => {
-            if (!addComment) setAddComment(true);
-            else setAddComment(false);
-            if (!isOpen) setIsOpen(true);
-            else setIsOpen(false);
-          }}
-        >
-          View Comments
-        </button>
-      </main>
-      <CommentForm
-        comment={addComment}
-        setComments={setComments}
-        article_id={article_id}
-        postComment={postComment}
-        username={user.username}
-        setCommentCount={setCommentCount}
-        setErr={setErr}
-      ></CommentForm>
-      <ArticleComments
-        open={isOpen}
-        setComments={setComments}
-        comments={comments}
-        username={user.username}
-        article_id={article_id}
-        setCommentCount={setCommentCount}
-        setErr={setErr}
-      ></ArticleComments>
-    </div>
-  );
 };
 export default SingleArticle;

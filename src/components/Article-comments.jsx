@@ -34,9 +34,7 @@ const ArticleComments = ({
         </p>
       </main>
     );
-  }
-
-  if (open) {
+  } else if (open) {
     return (
       <ul>
         {comments.map((comment) => {
