@@ -13,14 +13,17 @@ const ArticleComments = ({
   article_id,
   setCommentCount,
 }) => {
+  let loggedIn = false;
+
   useEffect(() => {
     getComments(article_id)
       .then((data) => {
+        loggedIn = false;
         let sorted = commentsSort(data);
         setComments(sorted);
       })
-      .catch((err) => {
-        setErr(err.response.data.msg);
+      .catch((error) => {
+        setErr(error.response);
       });
   }, []);
   if (err) {

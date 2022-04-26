@@ -23,8 +23,8 @@ const SingleArticle = ({ user, err, setErr }) => {
         setErr(err.response.data.msg);
       });
   }, []);
-  if (err) {
-    return <RouteMissing></RouteMissing>;
+  if (err === "Article not found") {
+    return <RouteMissing />;
   }
   return (
     <div>

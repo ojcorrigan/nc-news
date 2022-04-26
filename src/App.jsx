@@ -26,10 +26,7 @@ function App() {
           path="/articles/:article_id"
           element={<SingleArticle user={user} err={err} setErr={setErr} />}
         />
-        <Route
-          path="*"
-          element={<RouteMissing user={user} err={err} setErr={setErr} />}
-        />
+        <Route path="*" element={<RouteMissing err={err} />} />
       </Routes>
     </>
   );
