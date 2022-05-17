@@ -241,6 +241,66 @@ button:hover:disabled {
 		width: 50px;
 	}
 }
+@media screen and (max-width: 400px) {
+	.voting button {
+		font-size: 0.5rem;
+		width: 30px;
+	}
+
+	main {
+		font-size: 0.5rem;
+		width: 95%;
+		padding: 5px;
+	}
+
+	#topic {
+		margin-left: 5px;
+		font-size: 0.6rem;
+	}
+	#body {
+		padding: 5px;
+		font-size: 0.6rem;
+		margin-bottom: 15px;
+	}
+
+	#articleHead {
+		font-size: 1rem;
+		display: flex;
+	}
+
+	.voting {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	button {
+		width: 80px;
+		font-size: 0.5rem;
+	}
+
+	#date {
+		margin: 0;
+		font-size: 0.6rem;
+	}
+
+	.commentForm label {
+		font-size: 0.6rem;
+	}
+
+	.commentForm textArea {
+		font-size: 0.6rem;
+		padding: 5px;
+	}
+
+	.commentForm button {
+		font-size: 0.6rem;
+	}
+
+	.commentList p {
+		font-size: 0.6rem;
+	}
+}
 
 @media screen and (min-width: 1800px) {
 	main {

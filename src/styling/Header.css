@@ -95,3 +95,20 @@ nav {
 		font-size: 1rem;
 	}
 }
+
+@media screen and (max-width: 400px) {
+	.headTitle {
+		font-size: 1.5rem;
+	}
+	.headButton {
+		height: 40px;
+		width: 120px;
+		font-size: 1rem;
+	}
+
+	.headerButtons {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+}

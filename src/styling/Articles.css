@@ -117,6 +117,43 @@ a:hover {
 	transition: all 0.3s ease;
 }
 
+@media screen and (max-width: 400px) {
+	.articleList li {
+		width: 80%;
+		height: 100px;
+		margin: 10px;
+		font-size: 0.8rem;
+	}
+
+	.filter {
+		margin: 0;
+		text-align: center;
+	}
+
+	.articleTitle {
+		font-size: 0.9rem;
+	}
+	.filter {
+		font-size: 0.5rem;
+	}
+	.articleDetails {
+		font-size: 0.8rem;
+	}
+	.articleSort {
+		width: 40px;
+		font-size: 0.4rem;
+	}
+
+	.articleOrder {
+		width: 40px;
+		font-size: 0.4rem;
+	}
+
+	.articleTopic {
+		font-size: 0.8rem;
+	}
+}
+
 @media screen and (min-width: 500px) {
 	.articleList li {
 		width: 80%;
