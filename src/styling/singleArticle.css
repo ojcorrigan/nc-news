@@ -202,6 +202,33 @@ button:hover:disabled {
 		width: 60px;
 	}
 }
+@media screen and (max-width: 600px) {
+	main {
+		font-size: 1.5rem;
+	}
+	button {
+		width: 180px;
+		font-size: 1.1rem;
+	}
+
+	.voting button {
+		font-size: 0.8rem;
+		width: 80px;
+	}
+	.commentForm label {
+		font-size: 0.9rem;
+	}
+
+	.commentForm textArea {
+		font-size: 0.9rem;
+	}
+
+	.commentForm button {
+		font-size: 0.8rem;
+		width: 60px;
+		margin: 5px;
+	}
+}
 
 @media screen and (min-width: 1800px) {
 	main {

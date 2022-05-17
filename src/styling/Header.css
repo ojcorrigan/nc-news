@@ -84,3 +84,14 @@ nav {
 		font-size: 1rem;
 	}
 }
+
+@media screen and (min-width: 500px) {
+	.headTitle {
+		font-size: 2rem;
+	}
+	.headButton {
+		height: 50px;
+		width: 150px;
+		font-size: 1rem;
+	}
+}

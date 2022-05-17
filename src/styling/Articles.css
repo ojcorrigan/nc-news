@@ -117,7 +117,7 @@ a:hover {
 	transition: all 0.3s ease;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 500px) {
 	.articleList li {
 		width: 80%;
 		height: 150px;
