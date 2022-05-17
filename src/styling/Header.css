@@ -85,7 +85,7 @@ nav {
 	}
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (max-width: 600px) {
 	.headTitle {
 		font-size: 2rem;
 	}
