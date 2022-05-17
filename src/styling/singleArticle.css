@@ -219,7 +219,7 @@ button:hover:disabled {
 		width: 80px;
 	}
 	.commentForm label {
-		font-size: 0.9rem;
+		font-size: 0.7rem;
 	}
 
 	.commentForm textArea {
@@ -230,6 +230,15 @@ button:hover:disabled {
 		font-size: 0.8rem;
 		width: 60px;
 		margin: 5px;
+	}
+	button {
+		width: 150px;
+		font-size: 1rem;
+	}
+
+	.voting button {
+		font-size: 0.7rem;
+		width: 50px;
 	}
 }
 
