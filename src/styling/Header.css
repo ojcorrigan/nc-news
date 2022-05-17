@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+	--header: #002e2c;
+	--lightBlue: #73bfb8;
+	--offWhite: #fdf7fa;
+	--accentOrange: #d45113;
+	--Umber: #813405;
+}
+
+nav {
+	background-color: var(--header);
+	height: 225px;
+	display: flex;
+	flex-direction: column;
+}
+.headerButtons {
+	height: 80px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.headTitle {
+	grid-area: title;
+	margin: auto;
+	font-size: 4.5rem;
+	font-weight: bold;
+	color: var(--offWhite);
+}
+
+#loggedIn {
+	color: white;
+}
+
+.headButton {
+	height: 70px;
+	width: 400px;
+	border-radius: 10px;
+	background-color: var(--header);
+	border: solid 3px var(--accentOrange);
+	color: var(--accentOrange);
+	font-size: 1.8rem;
+	transition: all 0.3s ease;
+}
+
+.headButton:hover {
+	border: solid 3px var(--offWhite);
+	color: var(--offWhite);
+}
+
+#homeButtonLink {
+	text-align: center;
+}
+
+#home {
+	margin-top: auto;
+}
+
+@media screen and (max-width: 1600px) {
+	.headTitle {
+		font-size: 3.5rem;
+	}
+	.headButton {
+		height: 60px;
+		width: 300px;
+		font-size: 1.6rem;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.headTitle {
+		font-size: 2.4rem;
+	}
+	.headButton {
+		height: 50px;
+		width: 200px;
+		font-size: 1rem;
+	}
+}

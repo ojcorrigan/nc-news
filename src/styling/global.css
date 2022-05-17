@@ -1,0 +1,17 @@
+:root {
+	--header: #002e2c;
+	--lightBlue: #73bfb8;
+	--offWhite: #fdf7fa;
+	--accentOrange: #d45113;
+	--Umber: #813405;
+	--blush: #f9e7e7;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: var(--offWhite);
+}

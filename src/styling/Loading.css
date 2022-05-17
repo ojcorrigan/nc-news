@@ -1,0 +1,19 @@
+.loading {
+	width: 95vw;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#cabinet {
+	width: 70vw;
+	height: auto;
+	max-width: 837px;
+	max-height: 895px;
+	border-radius: 50%;
+}
+
+#loadingText {
+	font-size: 2.5rem;
+}
